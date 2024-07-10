@@ -11,9 +11,11 @@ internal class ChatConfiguration : IEntityTypeConfiguration<Chat>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Title)
+            .HasMaxLength(50)
             .IsRequired();
 
         builder.Property(x => x.Author)
+            .HasMaxLength(50)
             .IsRequired();
 
         builder.HasMany(x => x.Messages)
