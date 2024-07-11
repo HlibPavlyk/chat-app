@@ -10,6 +10,10 @@ internal class MessageConfiguration : IEntityTypeConfiguration<Message>
     {
         builder.HasKey(x => x.Id);
         
+        builder.Property(x => x.Author)
+            .HasMaxLength(50)
+            .IsRequired();
+        
         builder.Property(x => x.Text)
             .IsRequired();
         
