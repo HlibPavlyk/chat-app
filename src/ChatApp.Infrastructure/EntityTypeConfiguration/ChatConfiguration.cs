@@ -10,8 +10,12 @@ internal class ChatConfiguration : IEntityTypeConfiguration<Chat>
     {
         builder.HasKey(x => x.Id);
 
+        builder.HasIndex(x => x.Title)
+            .IsUnique();
+        
         builder.Property(x => x.Title)
             .HasMaxLength(50)
+            .IsUnicode()
             .IsRequired();
 
         builder.Property(x => x.Author)
