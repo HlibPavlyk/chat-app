@@ -6,5 +6,5 @@ namespace ChatApp.Application.Interfaces.Repositories;
 public interface IChatRepository : IGenericRepository<Chat>
 {
     Task<Chat?> GetChatWithMessagesByIdAsync(int id);
-    Task<PagedResponse<Chat>?> GetAllPagedChatsWithMessagesAsync(int page, int size);
+    Task<PagedResponse<Chat>?> GetAllPagedChatsWithSearchAsync(string? title, int page, int size);
 }

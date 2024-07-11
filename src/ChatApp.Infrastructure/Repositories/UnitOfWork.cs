@@ -19,7 +19,14 @@ public class UnitOfWork : IUnitOfWork
 
     public async Task CompleteAsync()
     {
-        await _context.SaveChangesAsync();
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            throw new InvalidOperationException(e.Message + " An entity with the same title may already exist.");
+        }
     }
 
     public void Dispose()

@@ -2,6 +2,7 @@
 using ChatApp.Application.Interfaces.Repositories;
 using ChatApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ChatApp.Infrastructure.Repositories;
 
@@ -15,17 +16,25 @@ public class ChatRepository : GenericRepository<Chat>, IChatRepository
             .Include(c => c.Messages)
             .FirstOrDefaultAsync(c => c.Id == id);
     }
-
-    public async Task<PagedResponse<Chat>?> GetAllPagedChatsWithMessagesAsync(int page, int size)
+   
+    public async Task<PagedResponse<Chat>?> GetAllPagedChatsWithSearchAsync(string? title, int page, int size)
     {
-        var items = await _context.Chats
+        var query =  _context.Chats
             .Include(c => c.Messages)
+            .AsQueryable();
+
+        if (!string.IsNullOrEmpty(title))
+        {
+            query = query.Where(c => c.Title.Contains(title));
+        }
+        
+        var items = await query
             .Skip((page - 1) * size)
             .Take(size)
             .ToListAsync();
 
-        var totalItems = await _context.Messages.CountAsync();
-        if (totalItems is 0)
+        var totalItems = await query.CountAsync();
+        if (items.IsNullOrEmpty() || totalItems is 0)
         {
             return null;
         }

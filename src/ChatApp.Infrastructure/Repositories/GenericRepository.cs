@@ -7,7 +7,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 {
     protected readonly ApplicationDbContext _context;
 
-    public GenericRepository(ApplicationDbContext context)
+    protected GenericRepository(ApplicationDbContext context)
     {
         _context = context;
     }
@@ -30,14 +30,10 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
             .AddAsync(entity);
     }
 
-    public async Task Remove(int id)
+    public void Remove(TEntity entity)
     {
-        var entity = await GetByIdAsync(id);
-        if (entity == null)
-        {
-            throw new ArgumentNullException("Entity not found");
-        }
-        _context.Set<TEntity>().Remove(entity);
+        _context.Set<TEntity>()
+            .Remove(entity);
     }
 
     public void Update(TEntity entity)
