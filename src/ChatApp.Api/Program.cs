@@ -1,5 +1,8 @@
-using System.ComponentModel;
+using ChatApp.Application.Interfaces.Repositories;
+using ChatApp.Application.Interfaces.Services;
+using ChatApp.Application.Services;
 using ChatApp.Infrastructure.Extensions;
+using ChatApp.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
         options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter() ());
     });*/
 
-builder.Services.AddDbConnection(builder.Configuration);
+builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbConnection(builder.Configuration);
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IChatService, ChatService>();
 
 var app = builder.Build();
 
