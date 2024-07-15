@@ -9,22 +9,15 @@ public class MessageRepository : GenericRepository<Message>, IMessageRepository
 {
     public MessageRepository(ApplicationDbContext context) : base(context) {}
 
-    public async Task<Message?> GetMessageWithChatByIdAsync(int id)
-    {
-        return await _context.Messages
-            .Include(m => m.Chat)
-            .FirstOrDefaultAsync(m => m.Id == id);
-    }
-
-    public async Task<PagedResponse<Message>?> GetAllPagedMessagesWithChatAsync(int page, int size)
+    public async Task<PagedResponse<Message>?> GetAllPagedMessagesByChatIdAsync(int chatId, int page, int size)
     {
         var items = await _context.Messages
-            .Include(m => m.Chat)
+            .Where(m => m.ChatId == chatId)
             .Skip((page - 1) * size)
             .Take(size)
             .ToListAsync();
 
-        var totalItems = await _context.Messages.CountAsync();
+        var totalItems = items.Count();
         if (totalItems is 0)
         {
             return null;

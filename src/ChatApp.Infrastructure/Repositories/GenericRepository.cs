@@ -36,8 +36,4 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
             .Remove(entity);
     }
 
-    public void Update(TEntity entity)
-    {
-        _context.Set<TEntity>().Update(entity);
-    }
 }
