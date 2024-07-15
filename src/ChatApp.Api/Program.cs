@@ -1,19 +1,18 @@
 using ChatApp.Application.Interfaces.Repositories;
 using ChatApp.Application.Interfaces.Services;
 using ChatApp.Application.Services;
+using ChatApp.Infrastructure;
 using ChatApp.Infrastructure.Extensions;
 using ChatApp.Infrastructure.Hubs;
 using ChatApp.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-/*builder.Services.AddControllers()
+builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter() ());
-    });*/
-
-builder.Services.AddControllers();
+        options.JsonSerializerOptions.Converters.Add(new DateTimeJsonConverter());
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
