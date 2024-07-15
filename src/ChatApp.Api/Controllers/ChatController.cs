@@ -2,7 +2,7 @@
 using ChatApp.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChatApp.Api;
+namespace ChatApp.Api.Controllers;
 
 [ApiController]
 [Route("api/chats")]
