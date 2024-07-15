@@ -8,10 +8,12 @@ namespace ChatApp.Application.Services;
 public class ChatService : IChatService
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IChatHubRepository _chatHubRepository;
         
-    public ChatService(IUnitOfWork unitOfWork)
+    public ChatService(IUnitOfWork unitOfWork, IChatHubRepository chatHubRepository)
     {
         _unitOfWork = unitOfWork;
+        _chatHubRepository = chatHubRepository;
     }
     public async Task<ChatWithMessagesGetDto> CreateChatAsync(ChatPostDto chat)
     {
@@ -92,6 +94,8 @@ public class ChatService : IChatService
         {
             throw new UnauthorizedAccessException("You are not the author of this chat");
         }
+
+        await _chatHubRepository.RemoveAllUsersFromGroupAsync(chat.Id);
         
         _unitOfWork.Chats.Remove(chat);
         await _unitOfWork.CompleteAsync();
