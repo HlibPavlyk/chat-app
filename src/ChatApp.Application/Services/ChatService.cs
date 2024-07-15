@@ -9,7 +9,9 @@ public class ChatService : IChatService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IChatHubRepository _chatHubRepository;
-        
+    private readonly int _defaultPageSize = 10;
+    private readonly int _defaultPageNumber = 1;
+    
     public ChatService(IUnitOfWork unitOfWork, IChatHubRepository chatHubRepository)
     {
         _unitOfWork = unitOfWork;
@@ -27,32 +29,37 @@ public class ChatService : IChatService
         await _unitOfWork.Chats.AddAsync(newChat);
         await _unitOfWork.CompleteAsync();
 
-        return await GetChatByIdAsync(newChat.Id);
+        return await GetChatWithPagedMessagesByIdAsync(newChat.Id, _defaultPageNumber, _defaultPageSize);
     }
 
-    public async Task<ChatWithMessagesGetDto> GetChatByIdAsync(int id)
+    public async Task<ChatWithMessagesGetDto> GetChatWithPagedMessagesByIdAsync(int id, int messagePageNumber, int messagePageSize)
     {
-        var chat = await _unitOfWork.Chats.GetChatWithMessagesByIdAsync(id);
-        
+        var chat = await _unitOfWork.Chats.GetByIdAsync(id);
         if (chat is null)
         {
             throw new ArgumentNullException(nameof(chat), "Chat not found");
         }
+        
+        var pagedChatMessages = await _unitOfWork.Messages.GetAllPagedMessagesByChatIdAsync(id, messagePageNumber, messagePageSize);
         
         var chatDto = new ChatWithMessagesGetDto
         {
             Id = chat.Id,
             Title = chat.Title,
             Author = chat.Author,
-            Messages = chat.Messages.Select(m => new MessageGetDto
+            Messages = pagedChatMessages is null ? null : new PagedResponse<MessageGetDto>
             {
-                Id = m.Id,
-                Author = m.Author,
-                Text = m.Text,
-                Timestamp = m.Timestamp
-            }).ToList()
-        };
-        
+                Items = pagedChatMessages.Items.Select(m => new MessageGetDto
+                {
+                    Id = m.Id,
+                    Author = m.Author,
+                    Text = m.Text,
+                    Timestamp = m.Timestamp
+                }).ToList(),
+                TotalPages = pagedChatMessages.TotalPages
+                }
+            };        
+                
         return chatDto;
     }
 

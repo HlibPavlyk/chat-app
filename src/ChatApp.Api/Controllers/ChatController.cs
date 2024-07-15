@@ -30,11 +30,11 @@ public class ChatController : Controller
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetChatByIdAsync(int id)
+    public async Task<IActionResult> GetChatByIdAsync(int id, [FromQuery] int page = 1, [FromQuery] int size = 10)
     {
         try
         {
-            var chat = await _chatService.GetChatByIdAsync(id);
+            var chat = await _chatService.GetChatWithPagedMessagesByIdAsync(id, page, size);
             return Ok(chat);
         }
         catch (ArgumentNullException e)
