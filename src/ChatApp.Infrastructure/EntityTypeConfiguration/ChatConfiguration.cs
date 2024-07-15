@@ -24,6 +24,7 @@ internal class ChatConfiguration : IEntityTypeConfiguration<Chat>
 
         builder.HasMany(x => x.Messages)
             .WithOne(x => x.Chat)
-            .HasForeignKey(x => x.ChatId);
+            .HasForeignKey(x => x.ChatId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
