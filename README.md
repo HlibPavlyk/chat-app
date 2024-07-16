@@ -44,7 +44,7 @@ This Chat Application is a modern, real-time messaging platform designed followi
    This command compiles and starts the web server.
 
 2. **Accessing the Application**
-   Once the application is running, you can access the API through `https://localhost:7182`.
+   Once the application is running, you can access the API through `https://localhost:7182/swagger`.
 
 ## Usage
 To use the chat application, connect to the provided endpoint using a SignalR client. The application supports joining chats, sending and receiving messages in real-time, and performing CRUD operations on chat data.

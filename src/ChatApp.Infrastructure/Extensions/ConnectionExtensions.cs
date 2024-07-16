@@ -9,6 +9,6 @@ public static class ConnectionExtensions
     public static void AddDbConnection(this IServiceCollection service, IConfiguration configuration)
     {
         var serviceCollection = service.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            options.UseInMemoryDatabase("_"));
     }
 }
