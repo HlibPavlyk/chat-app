@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.Api", "src\ChatApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.Infrastructure", "src\ChatApp.Infrastructure\ChatApp.Infrastructure.csproj", "{F585BA36-08AA-44E9-A236-747CDB2A4543}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.UnitTests", "tests\ChatApp.UnitTests\ChatApp.UnitTests.csproj", "{777CCC2B-660C-418E-BFAE-5383276AF2F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.IntegrationTests", "tests\ChatApp.IntegrationTests\ChatApp.IntegrationTests.csproj", "{66605DF2-EF31-418C-ABB2-4C2A27B341DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{F585BA36-08AA-44E9-A236-747CDB2A4543}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F585BA36-08AA-44E9-A236-747CDB2A4543}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F585BA36-08AA-44E9-A236-747CDB2A4543}.Release|Any CPU.Build.0 = Release|Any CPU
+		{777CCC2B-660C-418E-BFAE-5383276AF2F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{777CCC2B-660C-418E-BFAE-5383276AF2F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{777CCC2B-660C-418E-BFAE-5383276AF2F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{777CCC2B-660C-418E-BFAE-5383276AF2F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66605DF2-EF31-418C-ABB2-4C2A27B341DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66605DF2-EF31-418C-ABB2-4C2A27B341DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66605DF2-EF31-418C-ABB2-4C2A27B341DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66605DF2-EF31-418C-ABB2-4C2A27B341DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
